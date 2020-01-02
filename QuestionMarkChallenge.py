@@ -24,29 +24,16 @@ j = 'a5a?a?a?a5a'
 # 4Question Marks (False)
 k = 'a5a???a?a5a'
 
-def checkfail(qm,start,end):
-        # If pairs aren't 10 then we dont care, return Success
-        if start + end != 10:
-            return 0
-
-        # If pairs are 10 AND 3 question marks, return Success
-        elif start + end == 10 and qm == 3:
-            return 0
-      
-        # Else return Fail
-        # eg. If pairs equal 10 but not correct question marks, return Fail
-        else:
-            return 1
-
 def question_mark(string):
     positions = []
-    qm,valid = 0,0
+    qm = 0
+    verdict = ''
 
     # Iterate through provided string
     # Add the index of any integers to an array
     for i in range(len(string)):
         positions.append(i) if string[i].isdigit() else next
-
+    print( '-----')
     print( 'Str: ' + string    )
     print( 'Nums: ' + str(positions) )
     
@@ -56,13 +43,23 @@ def question_mark(string):
         if string[positions[i]] + string[positions[i+1]] != 10:
             next
 
-        
-        for x in range( positions[i]+1, positions[i+1] ):
-            #Iterate through the chars between each number pair
+        # If there aren't exactly 3 question marks between each pair, move on
+        for x in range(positions[i]+1, positions[i+1]):
             if string[x] == '?':
-                #Check for question marks
                 qm += 1
-            valid += checkfail(qm,int(string[positions[i]]),int(string[positions[i+1]]))
-        qm = 0 #Reset number of question marks, then move on to the next number pairing
+        if qm == 3: verdict = 'Pass'
+        else: verdict = 'Fail'
+        qm = 0
+        return verdict
 
 print("a = " + str(question_mark(a)))
+print("b = " + str(question_mark(b)))
+print("c = " + str(question_mark(c)))
+print("d = " + str(question_mark(d)))
+print("e = " + str(question_mark(e)))
+print("f = " + str(question_mark(f)))
+print("g = " + str(question_mark(g)))
+print("h = " + str(question_mark(h)))
+print("i = " + str(question_mark(i)))
+print("j = " + str(question_mark(j)))
+print("k = " + str(question_mark(k)))
