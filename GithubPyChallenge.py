@@ -104,8 +104,8 @@ def updateFile(repo, path, message, content, sha, branch_):
     return True
 
 # Personal repo
-GitCam = Github("689fb1607d870e03fc5641a5b6c11fa76732c7be")
-RepoCam = GitCam.get_repo("cameronbennett32/refactored-couscous")
+GitCam = Github("")
+RepoCam = GitCam.get_repo("")
 
 # Upload to personal Repo
 uploadFileToBranch(GitCam, RepoCam, 'PyUploads', "FizzBuzz.py")
