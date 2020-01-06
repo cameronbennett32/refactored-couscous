@@ -3,6 +3,10 @@
 """Script should upload the same file to two different Git repositories.
 It will update an existing file, or create a new file, in a 'PyUploads' branch.
 
+TODO:
+- Handle files located in subdirectories
+- 
+
 Resources:
 https://pygithub.readthedocs.io/en/latest/examples/Repository.html
 https://pygithub.readthedocs.io/en/latest/github_objects/Repository.html
@@ -11,7 +15,7 @@ https://www.pythonforbeginners.com/files/reading-and-writing-files-in-python
 
 # Import libraries
 from github import Github
-
+import os
 
 def uploadFileToBranch(git, repo, branch, filename):
     """ This function should either update or create a file in a git repo.
@@ -35,11 +39,7 @@ def uploadFileToBranch(git, repo, branch, filename):
     else:
         for i in range(len(contents)):
             if contents[i].name == filename:
-                print(contents[i].path)
-                print(contents[i].sha)
-                repo.update_file(contents[i].path,'New commit','test','1ba9162fa82db84ece8b1e8553ad3e0761716b2b',branch='PyUploads')
-                print(contents[i].path)
-                print(contents[i].sha)
+                repo.update_file(contents[i].path,'New commit',file,'1ba9162fa82db84ece8b1e8553ad3e0761716b2b',branch='PyUploads')
                 # Don't need to continue checking repo for files, so exit
                 break
                 
@@ -104,11 +104,14 @@ def updateFile(repo, path, message, content, sha, branch_):
     return True
 
 # Personal repo
-GitCam = Github("")
-RepoCam = GitCam.get_repo("")
+token = os.environ.get('GITTOKEN','')
+path = 'cameronbennett32/refactored-couscous'
+
+git = Github(token)
+repo = git.get_repo(path)
 
 # Upload to personal Repo
-uploadFileToBranch(GitCam, RepoCam, 'PyUploads', "FizzBuzz.py")
+uploadFileToBranch(git, repo, 'PyUploads', 'FizzBuzz.py')
 
 
 
